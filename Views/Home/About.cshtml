@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "SQL to Elastic Search Converter";
+}
+<h2>Convert SQL queries to ElasticSearch syntax</h2>
+
+<p>The application supports a very limited subset of sql. This is a work in progress. Here are some examples of what works.</p>
+<div style="height:10px;"></div>
+
+<h4>SELECT with specific column names and a variety of criteria</h4>
+<code style="padding:initial">
+    SELECT name, type, state, pin<br />
+    FROM cities<br />
+    WHERE name LIKE 'M%'<br />
+    &nbsp;&nbsp; AND state = 'FL'<br />
+    &nbsp;&nbsp; AND zipCode IN (33126, 33151)<br />
+    &nbsp;&nbsp; AND averageAge BETWEEN 34 AND 65<br />
+    &nbsp;&nbsp; AND averageSalary >= 55230<br />
+    &nbsp;&nbsp; AND averageTemperature < 80
+</code>
+
+<div style="height:15px;"></div>
+
+<h4>SELECT all columns with criteria</h4>
+<code style="padding:initial">
+    SELECT *<br />
+    FROM Planets<br />
+    WHERE SpacecraftWithinKilometers < 10000
+</code>
+
+<div style="height:15px;"></div>
+
+<h4>GROUP BY with criteria</h4>
+<code style="padding:initial">
+    SELECT SolarSystem, Galaxy<br />
+    FROM Planets<br />
+    WHERE SpacecraftWithinKilometers < 10000<br />
+    GROUP BY SolarSystem, Galaxy
+</code>
+
+<p style="margin-top:15px;">At the moment the following things do not work:</p>
+<ul>
+    <li>Sorting</li>
+    <li>Inequality operator (!=)</li>
+    <li>Common SQL functions like GetDate, DateDiff, Count(*), etc are not supported yet</li>
+</ul>
